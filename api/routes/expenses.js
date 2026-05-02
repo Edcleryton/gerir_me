@@ -15,7 +15,9 @@ router.use(AuthMiddleware.verifyToken);
  */
 router.get('/', (req, res) => {
   try {
-    const { category, status, startDate, endDate, page = 1, limit = 10 } = req.query;
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit) || 10));
+    const { category, status, startDate, endDate } = req.query;
     const userId = req.user.id;
     
     let expenses = ExpenseModel.findByUserId(userId);

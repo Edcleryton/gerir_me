@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const { UserModel } = require('../models/User');
 
-// Secret key for JWT (in production, this should be in environment variables)
-const JWT_SECRET = process.env.JWT_SECRET || 'gerir-me-secret-key-2024';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) throw new Error('FATAL: JWT_SECRET não definido. Crie um arquivo .env com base em .env.example');
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '24h';
 
 class AuthMiddleware {
